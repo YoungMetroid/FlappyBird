@@ -1,6 +1,5 @@
 class Pipes{
     
-
     constructor(pipe_Widths, pipe_Heights, flappyBird_Widths, flappyBird_Heights, Game_Widths, Game_Heights){
         this.pipe_Width = pipe_Widths;
         this.pipe_Height = pipe_Heights;
@@ -13,8 +12,8 @@ class Pipes{
         this.TopPipe_XPosition = this.Game_Width;
         this.TopPipe_YPosition = this.BottomPipe_YPosition - (this.flappyBird_Height*4) - (this.Game_Height*.80);
         this.TopPipeEnd = this.BottomPipe_YPosition - (this.flappyBird_Height*4);
-        console.log("Top Pipe End Position: " + this.TopPipeEnd);
-        console.log("Bottom Pipe Position: " + this.BottomPipe_YPosition);
+        //console.log("Top Pipe End Position: " + this.TopPipeEnd);
+        //console.log("Bottom Pipe Position: " + this.BottomPipe_YPosition);
     }
 
     moveLeft(farthestPipe){
@@ -23,8 +22,9 @@ class Pipes{
         if(this.BottomPipe_XPosition <= -100){
             this.BottomPipe_YPosition =  Math.floor(Math.random() * (this.Game_Height* .50) + (this.flappyBird_Height*5));
             this.TopPipe_YPosition = this.BottomPipe_YPosition - (this.flappyBird_Height*4) - (this.Game_Height*.80);
-            this.BottomPipe_XPosition = farthestPipe + 300;
-            this.TopPipe_XPosition = farthestPipe  + 300;
+            //console.log("Farthest Pipe:" + farthestPipe);
+            this.BottomPipe_XPosition = farthestPipe + this.pipe_Width*7;
+            this.TopPipe_XPosition = farthestPipe  + this.pipe_Width*7;
         }
     }
     Get_Top_Coordinates(){
@@ -44,7 +44,6 @@ class Pipes{
         this.TopPipe_YPosition = this.BottomPipe_YPosition - (this.flappyBird_Height*4) - (this.Game_Height*.80);
     }
     CheckCollision(x,y){
-
         if(x + this.flappyBird_Width >= this.TopPipe_XPosition && x < this.TopPipe_XPosition + this.pipe_Width)
                 if(y >= this.TopPipe_YPosition + this.pipe_Height &&  y + this.flappyBird_Height <= this.BottomPipe_YPosition){
 
