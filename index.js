@@ -1,15 +1,17 @@
 
 //objects
-const Population = 500;
+const Population = 1000;
 let birds = [];
 let birdsCopy = [];
 let pipes;
 let TotalIterations = 100;
+let currentGeneration = 1;
 let slider;
 //image Variables
 let flappyImage;
 let topPipeImage;
 let bottonPipeImage;
+let font;
 
 var x = window.innerWidth;
 var y = window.innerHeight;
@@ -21,9 +23,14 @@ function preload(){
   this.bottonPipeImage = this.loadImage('./assets/bottomPipe.png');
   this.topPipeImage = this.loadImage('./assets/topPipe.png');
   this.backGroundImage = this.loadImage('./assets/background.png');
+  this.font = this.loadFont('assets/PokemonGb-RAeo.ttf');
 }
 
 function setup() {
+
+  textFont(this.font);
+  textSize(12);
+  textAlign(LEFT, LEFT);
 
     console.log("X Value: " + x);
     console.log("Y Value: " + y);
@@ -50,7 +57,9 @@ function setup() {
 function draw(){
   this.clear();
   this.noSmooth();
-  
+ 
+ 
+ 
   for(let iterations = 0; iterations < slider.value(); iterations++){
   farthestPipe = pipes[0].BottomPipe_XPosition;
   for(counter = 0; counter < pipes.length; counter++){
@@ -87,7 +96,9 @@ function draw(){
       }
       if(birds.length === 0){
         nextGeneration();
+        currentGeneration++;
         restart();
+      
       }
   }
 }
@@ -96,16 +107,21 @@ function draw(){
   //Only drawing functions
   this.image(this.backGroundImage,0,0,x * 0.40,y*.8);
 
-  for(let bird of birds){
-      bird.drawBird(this.flappyImage);
-  }
-  for(counter = 0; counter < pipes.length; counter++){
-    this.image( this.bottonPipeImage,pipes[counter].Get_Bottom_Coordinates()[0],pipes[counter].Get_Bottom_Coordinates()[1],
-                this.bottonPipeImage.width*3,window.innerHeight*.80);
-    this.image( this.topPipeImage,pipes[counter].Get_Top_Coordinates()[0],pipes[counter].Get_Top_Coordinates()[1],
-                this.topPipeImage.width*3,window.innerHeight*.80);
-  }
+  if(slider.value() < 20)
+  {
+      for(let bird of birds){
+        bird.drawBird(this.flappyImage);
+    }
+    for(counter = 0; counter < pipes.length; counter++){
+      this.image( this.bottonPipeImage,pipes[counter].Get_Bottom_Coordinates()[0],pipes[counter].Get_Bottom_Coordinates()[1],
+                  this.bottonPipeImage.width*3,window.innerHeight*.80);
+      this.image( this.topPipeImage,pipes[counter].Get_Top_Coordinates()[0],pipes[counter].Get_Top_Coordinates()[1],
+                  this.topPipeImage.width*3,window.innerHeight*.80);
+    }
+}
 
+  text("Birds Total: " + birds.length, 400, 450);
+  text("Generation: " + currentGeneration, 400, 480);
 
 }
 function restart(){

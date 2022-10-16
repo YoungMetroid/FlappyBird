@@ -1,6 +1,6 @@
 function mutate(x) {
   if (random(1) < 0.1) {
-    let offset = randomGaussian() * 0.5;
+    let offset = randomGaussian() * 0.3;
     let newx = x + offset;
     return newx;
   } else {
